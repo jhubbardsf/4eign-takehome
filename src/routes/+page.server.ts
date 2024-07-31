@@ -1,6 +1,7 @@
-import { superValidate } from 'sveltekit-superforms';
+import { fail } from '@sveltejs/kit';
+import { superValidate, message } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import type { Actions , PageServerLoad } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 import { VacancySchema } from '$lib/schemas';
 
 export const load: PageServerLoad = async () => {
@@ -11,7 +12,14 @@ export const load: PageServerLoad = async () => {
 
 export const actions = {
 	default: async ({ request }) => {
-		const data = await request.formData();
-		console.log({ request, data });
+		const form = await superValidate(request, zod(VacancySchema));
+		console.log(form);
+
+		if (!form.valid) {
+			// Again, return { form } and things will just work.
+			return fail(400, { form });
+		}
+
+		return message(form, 'Form posted successfully!');
 	}
 } satisfies Actions;
