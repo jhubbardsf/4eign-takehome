@@ -1,4 +1,6 @@
+import forms from '@tailwindcss/forms';
 import { skeleton } from '@skeletonlabs/tw-plugin';
+import { feignTheme } from './4eign-theme';
 
 // @ts-check
 import { join } from 'path';
@@ -14,10 +16,18 @@ export default {
 		join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte,ts}')
 	],
 	theme: {
-		extend: {}
+		extend: {
+			// colors: {
+			// 	'light-blue': '#D7EEFD',
+			// 	blue: '#46B2F6'
+			// }
+		}
 	},
 	plugins: [
+		forms,
 		// 4. Append the Skeleton plugin (after other plugins)
+		// skeleton({ themes: { custom: [feignTheme] } })
 		skeleton({ themes: { preset: ['skeleton'] } })
+
 	]
 };
