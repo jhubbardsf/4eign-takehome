@@ -3,7 +3,9 @@
 This repo serves as a base for your code. I included necessary/useful dependencies and you can install them using `pnpm install`. If you want to use additional dependencies, feel free to add them.
 
 # Summary
+
 Create an HTML form that consists of the following fields that the user is required to specify:
+
 - Job Title (free text)
 - Place of Work (free text with Google Maps suggestions)
 - Start Date
@@ -40,18 +42,20 @@ Write "as close to production" level code as possible. The user should have the 
 If you manage to do it, make the UI look very nice with consistent branding (does not need to be 4EIGN branding). This is totally optional but something that would make you stand out.
 
 # Tooling
+
 - Use Tailwind and Skeleton for styling
 - Use zod for validation
 - Write fully typesafe code and make sure that `pnpm svelte-check` passes
 - Use SvelteKit (obviously) but also try to write everything you can in a way that is native to SvelteKit
 - The Google Maps API should be used to make it easy for the user to enter an address. You can use [this API key](google-maps-key.txt) (but please don't send too many request as the quota is configured very strict)
-![Google Maps](src/lib/assets/google-maps.png)
+  ![Google Maps](src/lib/assets/google-maps.png)
 
 # Submission
 
 Please invite me [louiskhub](https://github.com/louiskhub) to your **private** repo after you finished the task. Do not make the source code public!
 
 Please include a short README in which you:
+
 - outline everything that might not be immediately obvious from your code (although you should strive for code that is fairly self-explanatory).
 - mention possible improvements in the future and considerations you would make when merging this into an existing codebase
 - discuss approaches how we can secure our Google Maps API key against spammers and avoid getting a huge bill
