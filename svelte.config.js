@@ -8,7 +8,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		alias: {
-			'@schemas': 'src/lib/generated-schemas/schemas'
+			'@schemas': 'src/lib/schemas'
 		}
 	},
 	preprocess: vitePreprocess()
