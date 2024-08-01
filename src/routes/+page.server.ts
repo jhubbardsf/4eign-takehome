@@ -2,17 +2,17 @@ import { fail } from '@sveltejs/kit';
 import { superValidate, message } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
-import { VacancySchema } from '$lib/schemas';
+import { vacancySchema } from '$lib/schemas';
 
 export const load: PageServerLoad = async () => {
 	return {
-		form: await superValidate(zod(VacancySchema))
+		form: await superValidate(zod(vacancySchema))
 	};
 };
 
 export const actions = {
 	default: async ({ request }) => {
-		const form = await superValidate(request, zod(VacancySchema));
+		const form = await superValidate(request, zod(vacancySchema));
 		console.log(form);
 
 		if (!form.valid) {

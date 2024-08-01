@@ -3,10 +3,14 @@
 	import type { PageData } from './$types';
 	import { dev } from '$app/environment';
 	import { MapsAutocomplete } from '$lib/actions';
+	import Input from '$lib/forms/components/Input.svelte';
 
 	export let data: PageData;
 
-	const { form, errors, constraints, message } = superForm(data.form);
+	$: superform = superForm(data.form, {
+		autoFocusOnError: true
+	});
+	$: ({ enhance, form, errors } = superform);
 </script>
 
 <svelte:head>
@@ -15,68 +19,29 @@
 
 <div class="flex min-h-screen w-full">
 	<SuperDebug data={{ $form, $errors }} display={dev} />
-	<div class="card p-4 w-1/2 border-2 m-auto">
-		<h1>Set Vacancy</h1>
-		<form method="POST">
-			<label class="label">
-				<span>Job Title</span>
-				<input
-					bind:value={$form.title}
-					name="title"
-					aria-invalid={$errors.title ? 'true' : undefined}
-					class="input"
-					title="Job Title"
-					type="text"
-					placeholder="Electronics technician"
-				/>
-			</label>
-			{#if $errors.title}<span class="invalid">{$errors.title}</span>{/if}
+	<div class="card p-4 w-1/2 border-2 top-1/4 absolute flex flex-col gap-2">
+		<h1 class="text-2xl font-semibold">Set Vacancy</h1>
 
-			<label class="label">
-				<span>Place of Work</span>
-				<input
-					use:MapsAutocomplete
-					bind:value={$form.address}
-					name="address"
-					aria-invalid={$errors.address ? 'true' : undefined}
-					class="input Autocomplete"
-					title="Place of Work"
-					type="text"
-					placeholder="424 Bryant Ave, Danville, VA"
-				/>
-			</label>
-			{#if $errors.address}<span class="invalid">{$errors.address}</span>{/if}
+		<form method="POST" use:enhance class="flex flex-col gap-4 items-start align-baseline">
+			<Input
+				{superform}
+				field="title"
+				title="Job Title"
+				placeholder="Electronics technician"
+				type="text"
+			/>
+			<Input
+				{superform}
+				field="address"
+				title="Place of Work"
+				placeholder="548 Market St, San Francisco, CA 94104"
+				type="text"
+				use={MapsAutocomplete}
+			/>
+			<Input {superform} field="start_date" title="Start Date" type="date" />
+			<Input {superform} field="urgency" title="Urgency of Vacancy" type="range" />
 
-			<label class="label">
-				<span>Start Date</span>
-				<input
-					bind:value={$form.start_date}
-					name="start_date"
-					aria-invalid={$errors.start_date ? 'true' : undefined}
-					class="input"
-					title="Start Date"
-					type="date"
-					placeholder="dd.mm.yyyy"
-				/>
-			</label>
-			{#if $errors.start_date}<span class="invalid">{$errors.start_date}</span>{/if}
-
-			<label class="label">
-				<span>Urgency of vacancy</span>
-				<input
-					bind:value={$form.urgency}
-					name="urgency"
-					aria-invalid={$errors.urgency ? 'true' : undefined}
-					class="input"
-					title="Urgency of vacancy"
-					type="range"
-				/>
-			</label>
-			{#if $errors.urgency}<span class="invalid">{$errors.urgency}</span>{/if}
-
-			<div class="w-full flex">
-				<button type="submit" class="m-auto bg-primary-500">Submit</button>
-			</div>
+			<button type="submit" class="btn variant-filled self-center">Submit</button>
 		</form>
 	</div>
 </div>
