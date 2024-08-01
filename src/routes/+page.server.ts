@@ -3,6 +3,7 @@ import { superValidate, message } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
 import { vacancySchema } from '$lib/schemas';
+import { addVacancy } from '$lib/server/db';
 
 export const load: PageServerLoad = async () => {
 	return {
@@ -12,14 +13,24 @@ export const load: PageServerLoad = async () => {
 
 export const actions = {
 	default: async ({ request }) => {
+		// Validate or return errors
 		const form = await superValidate(request, zod(vacancySchema));
 		console.log(form);
 
 		if (!form.valid) {
-			// Again, return { form } and things will just work.
 			return fail(400, { form });
 		}
 
+		// Save or return errors
+		try {
+			console.log('Attempting to save: ', form.data);
+			await addVacancy({ data: form.data });
+		} catch (error) {
+			console.error(error);
+			return fail(500, { form, message: `Something went wrong: ${JSON.stringify(error)}` });
+		}
+
+		// Return success
 		return message(form, 'Form posted successfully!');
 	}
 } satisfies Actions;

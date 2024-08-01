@@ -10,7 +10,7 @@
 	$: superform = superForm(data.form, {
 		autoFocusOnError: true
 	});
-	$: ({ enhance, form, errors } = superform);
+	$: ({ enhance, form, errors, message } = superform);
 </script>
 
 <svelte:head>
@@ -40,6 +40,10 @@
 			/>
 			<Input {superform} field="start_date" title="Start Date" type="date" />
 			<Input {superform} field="urgency" title="Urgency of Vacancy" type="range" />
+
+			{#if message}
+				Returned message: {$message}
+			{/if}
 
 			<button type="submit" class="btn variant-filled self-center">Submit</button>
 		</form>
