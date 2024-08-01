@@ -1,5 +1,5 @@
-// import { fail, json } from '@sveltejs/kit';
-import { superValidate, message, fail } from 'sveltekit-superforms';
+import { fail, json } from '@sveltejs/kit';
+import { superValidate, message } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
 import { vacancySchema } from '$lib/schemas';
@@ -18,8 +18,7 @@ export const actions = {
 		console.log(form);
 
 		if (!form.valid) {
-			console.log('Returning fail 400 (not valid)');
-			return fail(400, { form });
+			return fail(400, form);
 		}
 
 		// Save or return errors
@@ -28,14 +27,14 @@ export const actions = {
 			const vacancy = await addVacancy({ data: form.data });
 
 			console.log('Vacancy created: ', vacancy);
-			return message(form, { type: 'success', text: 'Success!' });
+			return json({ form }, { status: 201 });
 		} catch (error) {
 			console.error(error);
-			console.log('Returning fail 400 (caught)');
-			return message(form, { type: 'error', text: 'Test' }, { status: 403 });
+			return fail(500, { form, message: `Something went wrong: ${JSON.stringify(error)}` });
 		}
 
 		// Return success
-		return message(form, { type: 'success', text: 'Form posted successfully!' });
+		console.log('Success!');
+		return message(form, 'Form posted successfully!');
 	}
 } satisfies Actions;

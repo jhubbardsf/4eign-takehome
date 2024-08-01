@@ -7,10 +7,13 @@
 
 	export let data: PageData;
 
-	$: superform = superForm(data.form, {
+	const superform = superForm(data.form, {
 		autoFocusOnError: true
+		// resetForm: false
 	});
-	$: ({ enhance, form, errors, message } = superform);
+	$: ({ enhance, form, errors, message, capture, restore, ...rest } = superform);
+
+	export const snapshot = { capture, restore };
 </script>
 
 <svelte:head>
@@ -18,8 +21,11 @@
 </svelte:head>
 
 <div class="flex min-h-screen w-full">
-	<SuperDebug data={{ $form, $errors }} display={dev} />
-	<div class="card p-4 w-1/2 border-2 top-1/4 absolute flex flex-col gap-2">
+	<SuperDebug data={{ $form, $errors, $message, superform }} display={dev} />
+	<div
+		class="card p-4 w-1/2 border-2 top-1/4 absolute flex flex-col gap-2
+	self-end place-self-end right-0"
+	>
 		<h1 class="text-2xl font-semibold">Set Vacancy</h1>
 
 		<form method="POST" use:enhance class="flex flex-col gap-4 items-start align-baseline">
@@ -41,8 +47,8 @@
 			<Input {superform} field="start_date" title="Start Date" type="date" />
 			<Input {superform} field="urgency" title="Urgency of Vacancy" type="range" />
 
-			{#if message}
-				Returned message: {$message}
+			{#if $message?.text}
+				Returned message: {$message?.text}
 			{/if}
 
 			<button type="submit" class="btn variant-filled self-center">Submit</button>
