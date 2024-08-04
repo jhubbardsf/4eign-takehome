@@ -5,10 +5,7 @@
 		formFieldProxy,
 		type SuperForm,
 		type FormPathLeaves,
-		type FieldProxy,
-		dateProxy,
-		type FormPath,
-		type FormPathType
+		dateProxy
 	} from 'sveltekit-superforms';
 	import type { HTMLInputTypeAttribute } from 'svelte/elements';
 

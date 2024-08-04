@@ -3,7 +3,7 @@
 	import type { PageData } from './$types';
 	import { dev } from '$app/environment';
 	import { MapsAutocomplete } from '$lib/actions';
-	import Input from '$lib/forms/components/Input.svelte';
+	import Input from '$lib/components/Input.svelte';
 
 	export let data: PageData;
 
