@@ -4,8 +4,8 @@ import type { Prisma } from '@prisma/client';
 const Schema: z.ZodType<Prisma.NestedDateTimeFilter> = z
 	.object({
 		equals: z.coerce.date().optional(),
-		in: z.union([z.coerce.date().array(), z.coerce.date()]).optional(),
-		notIn: z.union([z.coerce.date().array(), z.coerce.date()]).optional(),
+		in: z.union([z.coerce.date().array(), z.string().array()]).optional(),
+		notIn: z.union([z.coerce.date().array(), z.string().array()]).optional(),
 		lt: z.coerce.date().optional(),
 		lte: z.coerce.date().optional(),
 		gt: z.coerce.date().optional(),

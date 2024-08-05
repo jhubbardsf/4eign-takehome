@@ -29,7 +29,7 @@
 				>
 					GitHub Source
 				</a>
-				<a href="/settings">
+				<a href="/settings" title="Settings">
 					<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24">
 						<path
 							fill="currentColor"

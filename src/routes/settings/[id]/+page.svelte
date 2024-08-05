@@ -3,8 +3,9 @@
 	import { superForm } from 'sveltekit-superforms';
 	import type { PageData } from './$types';
 	import { MapsAutocomplete } from '$lib/actions';
-	import Input from '$lib/components/Input.svelte';
 	import Card from '$lib/components/Card.svelte';
+	import Input from '$lib/components/Input.svelte';
+	import { dateFormatter } from '$lib/utils/dates';
 
 	export let data: PageData;
 
@@ -12,11 +13,17 @@
 		autoFocusOnError: true,
 		resetForm: false
 	});
-	$: ({ enhance, form, errors, message, capture, restore, ...rest } = superform);
+	const { enhance, message } = superform;
+
+	const now = new Date();
+	const validMonth = now.getMonth() + 3;
+	const threeMonthsFromNow = new Date(now.setMonth(validMonth));
+
+	const minValidDate = dateFormatter(threeMonthsFromNow, 'yyyy-mm-dd');
 </script>
 
 <svelte:head>
-	<title>Set Vacancy</title>
+	<title>Update Vacancy</title>
 </svelte:head>
 
 <Card title="Update Vacancy">
@@ -36,7 +43,7 @@
 			type="text"
 			use={MapsAutocomplete}
 		/>
-		<Input {superform} field="start_date" title="Start Date" type="date" />
+		<Input {superform} field="start_date" title="Start Date" type="date" min={minValidDate} />
 		<Input {superform} field="urgency" title="Urgency of Vacancy" type="range" />
 
 		{#if $message?.text}

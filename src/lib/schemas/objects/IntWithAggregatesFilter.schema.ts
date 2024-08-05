@@ -7,8 +7,8 @@ import type { Prisma } from '@prisma/client';
 const Schema: z.ZodType<Prisma.IntWithAggregatesFilter> = z
 	.object({
 		equals: z.number().optional(),
-		in: z.union([z.number().array(), z.number()]).optional(),
-		notIn: z.union([z.number().array(), z.number()]).optional(),
+		in: z.number().array().optional(),
+		notIn: z.number().array().optional(),
 		lt: z.number().optional(),
 		lte: z.number().optional(),
 		gt: z.number().optional(),

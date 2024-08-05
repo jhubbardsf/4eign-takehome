@@ -19,6 +19,7 @@
 		placeholder?: string;
 		type: HTMLInputTypeAttribute;
 		use?: (node: HTMLInputElement) => void;
+		min?: string;
 	};
 
 	export let title: string;
@@ -35,7 +36,9 @@
 
 <div class="w-full flex flex-col gap-2" use:autoAnimate>
 	<label>
+		<!-- <SuperDebug data={{ $bindValue, $value, form: superform.form }} /> -->
 		<span class="font-semibold">{title}</span>
+		<!-- {$errors} - {$tainted} - {_tainted} -->
 		<input
 			name={field}
 			{title}

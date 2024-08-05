@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { DataHandler } from '@vincjo/datatables/remote';
-	import type { State, Row } from '@vincjo/datatables/remote';
+	import type { Vacancy } from '@prisma/client';
+	import type { State } from '@vincjo/datatables/remote';
 	import { goto } from '$app/navigation';
 	import { reload } from '$lib/api';
 	import Pagination from '$lib/components/datatable/Pagination.svelte';
@@ -8,13 +9,13 @@
 	import RowsPerPage from '$lib/components/datatable/RowsPerPage.svelte';
 	import ThFilter from '$lib/components/datatable/ThFilter.svelte';
 	import ThSort from '$lib/components/datatable/ThSort.svelte';
-	import type { Vacancy } from '@prisma/client';
+	import { dateFormatter } from '$lib/utils/dates';
 
 	export let vacancies: Vacancy[];
 	export let count: number;
 
 	//Init data handler - SERVER
-	const handler = new DataHandler<Row>(vacancies, { rowsPerPage: 5, totalRows: count });
+	const handler = new DataHandler<Vacancy>(vacancies, { rowsPerPage: 5, totalRows: count });
 	const rows = handler.getRows();
 
 	handler.onChange((state: State) => reload(state));
@@ -49,7 +50,7 @@
 						<td>{row.id}</td>
 						<td>{row.title}</td>
 						<td>{row.address}</td>
-						<td>{row.start_date}</td>
+						<td>{dateFormatter(row.start_date)}</td>
 						<td>{row.urgency}</td>
 					</tr>
 				{/each}

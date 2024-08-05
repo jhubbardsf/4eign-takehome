@@ -4,7 +4,7 @@
 	export let filterBy: string;
 
 	let value: string;
-	let timeout: any;
+	let timeout: NodeJS.Timeout;
 
 	const filter = () => {
 		handler.filter(value, filterBy);

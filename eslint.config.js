@@ -46,6 +46,11 @@ export default [
 		ignores: ['build/', '.svelte-kit/', 'dist/']
 	},
 	{
+		languageOptions: {
+			globals: {
+				NodeJS: true
+			}
+		},
 		rules: {
 			'import/named': 'error',
 			'import/namespace': 'error',

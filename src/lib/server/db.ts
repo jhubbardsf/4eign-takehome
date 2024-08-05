@@ -46,8 +46,6 @@ export const updateVacancy = async (vacancy: z.infer<typeof VacancyUpdateOneSche
  * @return {Promise<any>} A promise that resolves to the response from the server.
  */
 export const reload = async (state: State): Promise<ReturnType<typeof getVacancies>> => {
-	// const response = await
-	// fetch(`https://jsonplaceholder.typicode.com/todos?${getParams(state)}`);
 	const response = await getVacancies(getParams(state));
 	return response;
 };

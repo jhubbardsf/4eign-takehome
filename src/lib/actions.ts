@@ -1,5 +1,6 @@
 import { Loader } from '@googlemaps/js-api-loader';
 import { PUBLIC_GOOGLE_MAPS_API_KEY } from '$env/static/public';
+import { dateFormatter } from '$lib/utils/dates';
 
 type Autocomplete = google.maps.places.Autocomplete;
 
@@ -29,4 +30,10 @@ export const MapsAutocomplete = (node: HTMLInputElement) => {
 		.catch((e) => {
 			console.error(e);
 		});
+};
+
+/** Min Date */
+export const MinDate = (node: HTMLInputElement, date: Date) => {
+	const minDate = dateFormatter(date, 'yyyy-mm-dd');
+	node.setAttribute('min', minDate);
 };
