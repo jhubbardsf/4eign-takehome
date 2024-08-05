@@ -1,3 +1,11 @@
+# Josh's Submission
+
+## Instructions to run
+1. `pnpm i`
+2. `cp .env.example .env`
+3. `pnpm dev`
+
+
 # 4EIGN Takehome
 
 This repo serves as a base for your code. I included necessary/useful dependencies and you can install them using `pnpm install`. If you want to use additional dependencies, feel free to add them.

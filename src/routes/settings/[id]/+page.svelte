@@ -7,13 +7,13 @@
 
 	export let data: PageData;
 
-	const superform = superForm(data.form, {
+	const superform = superForm(data.form!, {
 		autoFocusOnError: true
 		// resetForm: false
 	});
 	$: ({ enhance, form, errors, message, capture, restore, ...rest } = superform);
 
-	export const snapshot = { capture, restore };
+	// export const snapshot = { capture, restore };
 </script>
 
 <svelte:head>

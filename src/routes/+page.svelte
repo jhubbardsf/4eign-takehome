@@ -13,7 +13,7 @@
 	});
 	$: ({ enhance, form, errors, message, capture, restore, ...rest } = superform);
 
-	export const snapshot = { capture, restore };
+	// export const snapshot = { capture, restore };
 </script>
 
 <svelte:head>
@@ -21,7 +21,9 @@
 </svelte:head>
 
 <div class="flex min-h-screen w-full">
-	<SuperDebug data={{ $form, $errors, $message, superform }} display={dev} />
+	<div class="h-1/2">
+		<SuperDebug data={{ $form, $errors, $message, superform }} display={dev} />
+	</div>
 	<div
 		class="card p-4 w-1/2 border-2 top-1/4 absolute flex flex-col gap-2
 	self-end place-self-end right-0"

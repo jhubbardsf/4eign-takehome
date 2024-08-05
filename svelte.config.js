@@ -11,6 +11,14 @@ const config = {
 			'@schemas': 'src/lib/schemas'
 		}
 	},
+	vitePlugin: {
+		// set to true for defaults or customize with object
+		inspector: {
+			toggleKeyCombo: 'meta-shift',
+			showToggleButton: 'always',
+			toggleButtonPos: 'bottom-right'
+		}
+	},
 	preprocess: vitePreprocess()
 };
 

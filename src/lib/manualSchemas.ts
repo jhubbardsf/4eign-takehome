@@ -14,27 +14,54 @@ export const vacancySchema = z
 	})
 	.required();
 
-// Helper schema for keyof Row
-const rowKeySchema = z.union([z.string(), z.number(), z.symbol()]);
+// Define the Filter type
+// const dtFilterSchema = <T extends z.ZodType>(rowSchema: T) =>
+// 	z.object({
+// 		filterBy: z
+// 			.string()
+// 			.refine((key) => key in rowSchema, {
+// 				message: 'orderBy key must exist in Row'
+// 			})
+// 			.optional() as z.ZodType<keyof z.infer<typeof rowSchema>>,
+// 		value: z.union([z.string(), z.number(), z.boolean()]).optional()
+// 	});
 
-const filterSchema = z.object({
-	filterBy: rowKeySchema,
+const dtFilterSchema = z.object({
+	filterBy: vacancySchema.keyof(),
 	value: z.union([z.string(), z.number(), z.boolean()]).optional()
 });
 
-const sortSchema = z.object({
-	orderBy: rowKeySchema.optional(),
+// Define the Sort type
+// const dtSortSchema = <T extends z.ZodTypeAny>(rowSchema: T) =>
+// 	z.object({
+// 		orderBy: z
+// 			.string()
+// 			.refine((key) => key in rowSchema, {
+// 				message: 'orderBy key must exist in Row'
+// 			})
+// 			.optional() as z.ZodType<keyof z.infer<typeof rowSchema>>,
+// 		direction: z.enum(['asc', 'desc']).optional()
+// 	});
+const dtSortSchema = z.object({
+	orderBy: vacancySchema.keyof(),
 	direction: z.enum(['asc', 'desc']).optional()
 });
 
-export const stateSchema = z.object({
+// Define the State type
+// const dtStateSchema = <T extends z.ZodTypeAny>(rowSchema: T) =>
+const dtStateSchema = z.object({
 	pageNumber: z.number(),
 	rowsPerPage: z.number(),
 	offset: z.number(),
 	search: z.string().optional(),
-	sort: sortSchema.optional(),
-	filters: z.array(filterSchema).optional(),
-	setTotalRows: z.function().args(z.number()).returns(z.void())
+	sort: dtSortSchema.optional(),
+	filters: z.array(dtFilterSchema).optional(),
+	setTotalRows: z.function().args(z.number()).returns(z.void()).optional(),
+	sorted: dtSortSchema.describe("Deprecated: use 'sort' instead").optional()
 });
 
+// export const stateSchema = dtStateSchema(vacancySchema);
+export const stateSchema = dtStateSchema;
+
+export type StateSchema = z.infer<typeof stateSchema>;
 export type VacancySchema = z.infer<typeof vacancySchema>;
