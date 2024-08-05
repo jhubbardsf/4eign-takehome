@@ -1,7 +1,7 @@
 // import { fail, json } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { State } from '@vincjo/datatables/remote';
-import { getParams, getVacancies } from '$lib/server/db';
+import { getParams, getVacancies, getVacancyCount } from '$lib/server/db';
 
 const DEFAULT_PARAMS: State = {
 	rowsPerPage: 5,
@@ -16,6 +16,7 @@ const DEFAULT_PARAMS: State = {
 
 export const load: PageServerLoad = async () => {
 	return {
-		vacancies: await getVacancies(getParams(DEFAULT_PARAMS))
+		vacancies: await getVacancies(getParams(DEFAULT_PARAMS)),
+		count: await getVacancyCount()
 	};
 };

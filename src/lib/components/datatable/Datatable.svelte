@@ -8,9 +8,13 @@
 	import RowsPerPage from '$lib/components/datatable/RowsPerPage.svelte';
 	import ThFilter from '$lib/components/datatable/ThFilter.svelte';
 	import ThSort from '$lib/components/datatable/ThSort.svelte';
+	import type { Vacancy } from '@prisma/client';
 
-	//I nit data handler - SERVER
-	const handler = new DataHandler<Row>([], { rowsPerPage: 5, totalRows: 200 });
+	export let vacancies: Vacancy[];
+	export let count: number;
+
+	//Init data handler - SERVER
+	const handler = new DataHandler<Row>(vacancies, { rowsPerPage: 5, totalRows: count });
 	const rows = handler.getRows();
 
 	// handler.onChange((state: State) => reload(state, vacancies));
@@ -18,9 +22,8 @@
 	handler.invalidate();
 </script>
 
-<div class="overflow-y-auto space-y-4">
+<div class="overflow-y-auto space-y-4 p-2">
 	<header class="flex justify-end">
-		<!-- <Search {handler} /> -->
 		<RowsPerPage {handler} />
 	</header>
 	<div class="table-container">
@@ -41,7 +44,7 @@
 					<ThFilter {handler} filterBy="urgency" />
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="h-[500px] overflow-hidden">
 				{#each $rows as row}
 					<tr on:click={() => goto(`/settings/${row.id}`)} class="cursor-pointer">
 						<td>{row.id}</td>

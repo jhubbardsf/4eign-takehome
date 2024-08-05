@@ -1,10 +1,28 @@
 # Josh's Submission
 
 ## Instructions to run
+
 1. `pnpm i`
 2. `cp .env.example .env`
 3. `pnpm dev`
 
+Optional:
+In order to run Prisma studio and look through the database you can run `pnpm
+prisma studio`.
+
+## Discussion Points
+
+### Code Outline
+
+The code should be fairly straight forward to read with obvious paths. I chose
+Prisma with a sqlite database to persist the data for it's ease of setup and zod
+type generators. I used
+[svelte simple datables](https://vincjo.fr/datatables/remote/home) in the
+`/settings` route to display the submitted vacancies with server side sorting/pagination.
+
+### Improvements
+
+There are several improvements on the current codebase that could be 
 
 # 4EIGN Takehome
 
