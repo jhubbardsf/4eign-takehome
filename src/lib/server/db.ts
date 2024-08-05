@@ -39,40 +39,18 @@ export const updateVacancy = async (vacancy: z.infer<typeof VacancyUpdateOneSche
 	return returnData;
 };
 
-export const reload = async (state: State) => {
+/**
+ * Reloads the data based on the provided state.
+ *
+ * @param {State} state - The state object containing the rowsPerPage, sort, filters, and offset.
+ * @return {Promise<any>} A promise that resolves to the response from the server.
+ */
+export const reload = async (state: State): Promise<ReturnType<typeof getVacancies>> => {
 	// const response = await
 	// fetch(`https://jsonplaceholder.typicode.com/todos?${getParams(state)}`);
 	const response = await getVacancies(getParams(state));
 	return response;
 };
-
-// export type State = {
-//     pageNumber: number;
-//     rowsPerPage: number;
-//     offset: number;
-//     search: string | undefined;
-//     sort: Sort<Row> | undefined;
-//     filters: Filter<Row>[] | undefined;
-//     setTotalRows: (value: number) => void;
-//     /**
-//      * @deprecated use 'sort' instead
-//      */
-//     sorted: Sort<Row> | undefined;
-// };
-
-// export const VacancyFindManySchema = z.object({
-// 	orderBy: z
-// 	.union([
-// 		VacancyOrderByWithRelationInputObjectSchema,
-// 		VacancyOrderByWithRelationInputObjectSchema.array()
-// 	])
-// 	.optional(),
-// where: VacancyWhereInputObjectSchema.optional(),
-// cursor: VacancyWhereUniqueInputObjectSchema.optional(),
-// take: z.number().optional(),
-// skip: z.number().optional(),
-// distinct: z.array(VacancyScalarFieldEnumSchema).optional()
-// });
 
 /**
  * Generates the parameters for a Prisma query based on the provided state.

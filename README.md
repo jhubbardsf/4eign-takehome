@@ -20,9 +20,16 @@ type generators. I used
 [svelte simple datables](https://vincjo.fr/datatables/remote/home) in the
 `/settings` route to display the submitted vacancies with server side sorting/pagination.
 
-### Improvements
+### Considerations/Improvements
 
-There are several improvements on the current codebase that could be 
+I'd look at the current codebase and look for currently used patterns before
+introducing new ones. The overall UI was largely lifted some skeleton-ui
+templates and could be improved on.
+
+### Google API Security
+
+You could secure your Google Maps API key by having the autocomplete handled
+server side and potentially doing rate limiting with somehting like [svelte-api-keys](https://www.npmjs.com/package/svelte-api-keys).
 
 # 4EIGN Takehome
 

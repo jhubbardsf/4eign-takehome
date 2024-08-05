@@ -8,6 +8,8 @@
 
 	export let data: PageData;
 
+	console.log({ data });
+
 	const superform = superForm(data.form, {
 		autoFocusOnError: true
 		// resetForm: false

@@ -27,10 +27,10 @@
 	export let field: FormPathLeaves<T>;
 	export let use: (node: HTMLInputElement) => void = () => {};
 
-	$: ({ value, errors, tainted } = formFieldProxy(superform, field));
+	const { value, errors, tainted } = formFieldProxy(superform, field);
 
 	// Special binding for date
-	$: bindValue = type === 'date' ? dateProxy(superform, field, { format: 'date' }) : value;
+	const bindValue = type === 'date' ? dateProxy(superform, field, { format: 'date' }) : value;
 </script>
 
 <div class="w-full flex flex-col gap-2" use:autoAnimate>

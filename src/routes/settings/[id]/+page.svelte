@@ -9,8 +9,8 @@
 	export let data: PageData;
 
 	const superform = superForm(data.form!, {
-		autoFocusOnError: true
-		// resetForm: false
+		autoFocusOnError: true,
+		resetForm: false
 	});
 	$: ({ enhance, form, errors, message, capture, restore, ...rest } = superform);
 </script>
