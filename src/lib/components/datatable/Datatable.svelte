@@ -17,7 +17,6 @@
 	const handler = new DataHandler<Row>(vacancies, { rowsPerPage: 5, totalRows: count });
 	const rows = handler.getRows();
 
-	// handler.onChange((state: State) => reload(state, vacancies));
 	handler.onChange((state: State) => reload(state));
 	handler.invalidate();
 </script>

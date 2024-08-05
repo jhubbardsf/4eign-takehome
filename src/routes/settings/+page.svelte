@@ -3,10 +3,10 @@
 	import Datatable from '$lib/components/datatable/Datatable.svelte';
 
 	export let data: PageData;
-
-	console.log({ data });
 </script>
 
-<!-- <div class=""> -->
+<svelte:head>
+	<title>Settings</title>
+</svelte:head>
+
 <Datatable vacancies={data.vacancies} count={data.count} />
-<!-- </div> -->
